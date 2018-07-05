@@ -1,0 +1,27 @@
+{
+    "name": "linkorb/bpm",
+    "description": "Business Process Management library for PHP",
+    "homepage": "http://www.github.com/linkorb/bpm",
+    "keywords": ["php", "bonita", "bpm", "bpmn", "linkorb"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joost Faassen",
+            "email": "j.faassen@linkorb.com",
+            "role": "Development"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "linkorb/boost": "~1.0"
+    },
+    "require-dev": {
+       "symfony/dotenv": "v3.3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bpm\\": "src/"
+        }
+    },
+    "license": "MIT"
+}

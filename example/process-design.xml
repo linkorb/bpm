@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tns:processDefinition id="_0" name="HipchatOnboardUserProcess" version="1.0" xmlns:tns="http://www.bonitasoft.org/ns/process/client/7.4">
+    <description></description>
+    <displayDescription></displayDescription>
+    <parameters/>
+    <actors>
+        <actor id="_8207413261138072070" name="NewUserActor" initiator="false">
+            <description>This is an example of actor that is mapped to any user</description>
+        </actor>
+        <actor id="_7584922141985516662" name="HipChatAdminActor" initiator="true">
+            <description>Users that are admins for our HipChat organization</description>
+        </actor>
+    </actors>
+    <actorInitiator>_7584922141985516662</actorInitiator>
+    <flowElements id="_7931377417763683634">
+        <userTask id="_7357357591980029309" name="Invite new user" actorName="HipChatAdminActor" priority="NORMAL">
+            <incomingTransition>_7785980565840300775</incomingTransition>
+            <outgoingTransition>_8954577735438839897</outgoingTransition>
+            <outgoingTransition>_6617123485640100125</outgoingTransition>
+            <outgoingTransition>_6894822671093773608</outgoingTransition>
+            <description>1. Login to https://admin.hipchat.com
+2. Click "Group admin"
+3. Click "Users"
+4. Click "Add"
+5. Enter the new user's details. Use firstname as "mention" name, uppercase first character. If firstname is a duplicate, add lastname, or use initials.
+</description>
+            <displayDescription id="_4640664297824016491" name="# Some cool portal description
+
+description text here
+
+sakdjhaksjdhaksd
+
+asd
+
+* as dfsdf
+* das dasd 
+* a adsnbjahsd jahgsd
+
+some [cool](http://cool.web) link!
+
+skajhskd jahkdjshak a" expressionType="TYPE_CONSTANT" returnType="java.lang.String" interpreter="">
+                <content># Some cool portal description
+
+description text here
+
+sakdjhaksjdhaksd
+
+asd
+
+* as dfsdf
+* das dasd 
+* a adsnbjahsd jahgsd
+
+some [cool](http://cool.web) link!
+
+skajhskd jahkdjshak a</content>
+            </displayDescription>
+            <displayName id="_8778388373959693881" name="displayName()" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                <content>"Invite " + hipChatOnboardUserVariable.firstName + " to HipChat"</content>
+                <expression id="_5463844025944374743" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA" returnType="com.linkorb.model.HipChatOnboardUserModel">
+                    <content>hipChatOnboardUserVariable</content>
+                </expression>
+            </displayName>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations>
+                <operation operatorType="JAVA_METHOD" operator="setMentionName:java.lang.String">
+                    <leftOperand name="hipChatOnboardUserVariable" type="BUSINESS_DATA"/>
+                    <rightOperand id="_8266981498459032424" name="hipChatOnboardUserVariableInput.mentionName" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                        <content>hipChatOnboardUserVariableInput.mentionName</content>
+                        <expression id="_9036410075327627360" name="hipChatOnboardUserVariableInput" expressionType="TYPE_CONTRACT_INPUT" returnType="java.util.Map">
+                            <content>hipChatOnboardUserVariableInput</content>
+                        </expression>
+                    </rightOperand>
+                </operation>
+            </operations>
+            <boundaryEvents/>
+            <contract>
+                <inputDefinitions>
+                    <inputDefinition name="hipChatOnboardUserVariableInput" multiple="false">
+                        <inputDefinitions>
+                            <inputDefinition type="TEXT" name="mentionName" multiple="false">
+                                <inputDefinitions/>
+                            </inputDefinition>
+                        </inputDefinitions>
+                    </inputDefinition>
+                </inputDefinitions>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_7540188841775197506" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <userTask id="_7435707654066390927" name="Introduce to team" actorName="HipChatAdminActor" priority="NORMAL">
+            <incomingTransition>_5226780574299569479</incomingTransition>
+            <incomingTransition>_6257789878769005867</incomingTransition>
+            <outgoingTransition>_5993570045285770475</outgoingTransition>
+            <description>Introduce the new team member in one of the shared hipchat rooms</description>
+            <displayName id="_6877146431182005292" name="displayName()" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                <content>"Introduce " + hipChatOnboardUserVariable.firstName + " to the team on HipChat"</content>
+                <expression id="_6817626446937563586" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA" returnType="com.linkorb.model.HipChatOnboardUserModel">
+                    <content>hipChatOnboardUserVariable</content>
+                </expression>
+            </displayName>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <contract>
+                <inputDefinitions/>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_6200610234153276579" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <userTask id="_5700870726958800010" name="Add hipchat name to userbase " actorName="HipChatAdminActor" priority="NORMAL">
+            <incomingTransition>_6894822671093773608</incomingTransition>
+            <outgoingTransition>_6666375591147255079</outgoingTransition>
+            <description>Add the mention name of this user to userbase</description>
+            <displayName id="_6818437285553744370" name="displayName()" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                <content>"Register HipChat mention name " + hipChatOnboardUserVariable.mentionName + " in Userbase"</content>
+                <expression id="_4847216539057111368" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA" returnType="com.linkorb.model.HipChatOnboardUserModel">
+                    <content>hipChatOnboardUserVariable</content>
+                </expression>
+            </displayName>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <contract>
+                <inputDefinitions/>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_4820405263396553347" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <callActivity id="_5189707049047128991" name="Add to rooms" callableElementType="PROCESS">
+            <incomingTransition>_6617123485640100125</incomingTransition>
+            <outgoingTransition>_5226780574299569479</outgoingTransition>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <callableElement id="_4798007998791228265" name="HipChatAddUserToRoomProcess" expressionType="TYPE_CONSTANT" returnType="java.lang.String" interpreter="">
+                <content>HipChatAddUserToRoomProcess</content>
+            </callableElement>
+            <contractInput>
+                <input name="contractMentionNameVariable">
+                    <expression id="_6367348112971017073" name="getMentionName" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                        <content>return hipChatOnboardUserVariable.mentionName</content>
+                        <expression id="_7855644178903584194" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA" returnType="com.linkorb.model.HipChatOnboardUserModel">
+                            <content>hipChatOnboardUserVariable</content>
+                        </expression>
+                    </expression>
+                </input>
+                <input name="contractRoomNameVariable">
+                    <expression id="_8190898573866112313" name="getRoomName" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.String" interpreter="GROOVY">
+                        <content>return "Watercooler"</content>
+                    </expression>
+                </input>
+            </contractInput>
+        </callActivity>
+        <userTask id="_6173365751839750118" name="Is new user online?" actorName="HipChatAdminActor" priority="NORMAL">
+            <incomingTransition>_7759837143883897062</incomingTransition>
+            <outgoingTransition>_6257789878769005867</outgoingTransition>
+            <description>Check if new user is online on HipChat</description>
+            <defaultTransition>_8524398059183008066</defaultTransition>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <contract>
+                <inputDefinitions/>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_7350493035739098403" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <userTask id="_8298627644161793879" name="Accept HipChat invite" actorName="NewUserActor" priority="NORMAL">
+            <incomingTransition>_8954577735438839897</incomingTransition>
+            <outgoingTransition>_8086028757893704816</outgoingTransition>
+            <description>We've sent you an invite for our hipchat organization.
+
+Please check your email and follow any instructions to setup your account. </description>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <userFilter id="_6415850016583191333" name="Initiator filter" userFilterId="initiator" version="1.0.0">
+                <inputs>
+                    <input name="autoAssign">
+                        <expression id="_6822647727125559849" name="true" expressionType="TYPE_CONSTANT" returnType="java.lang.Boolean" interpreter="">
+                            <content>true</content>
+                        </expression>
+                    </input>
+                </inputs>
+            </userFilter>
+            <contract>
+                <inputDefinitions/>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_6944638573186391344" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <userTask id="_6409771170577011135" name="Setup desktop and mobile HipChat clients" actorName="NewUserActor" priority="NORMAL">
+            <incomingTransition>_8086028757893704816</incomingTransition>
+            <outgoingTransition>_8490577410576887742</outgoingTransition>
+            <description>You can use HipChat in the following ways:
+1. using the web: https://linkorb.hipchat.com/chat
+2. using a desktop client (available for windows, linux and mac os x)
+3. using the mobile app (android and iOS available)
+
+Please go to </description>
+            <displayDescription id="_6922609891492758498" name="dkhjskadjhs
+a
+sd
+f
+sdf
+sdfjsh ksjfhd
+
+s
+ df
+s
+ df
+s
+df skjshf ksjhf
+s
+d
+f sdf jshfdk jsd f
+
+sdf ksjhdk sjhdkf s
+
+
+sdf ksjhfksjhfdk
+
+
+sdf sdfhkjsdhfksjdfhskdjfhs f" expressionType="TYPE_CONSTANT" returnType="java.lang.String" interpreter="">
+                <content>dkhjskadjhs
+a
+sd
+f
+sdf
+sdfjsh ksjfhd
+
+s
+ df
+s
+ df
+s
+df skjshf ksjhf
+s
+d
+f sdf jshfdk jsd f
+
+sdf ksjhdk sjhdkf s
+
+
+sdf ksjhfksjhfdk
+
+
+sdf sdfhkjsdhfksjdfhskdjfhs f</content>
+            </displayDescription>
+            <dataDefinitions/>
+            <businessDataDefinitions/>
+            <operations/>
+            <boundaryEvents/>
+            <userFilter id="_6651370107052428183" name="Process initiator filter" userFilterId="initiator" version="1.0.0">
+                <inputs>
+                    <input name="autoAssign">
+                        <expression id="_6997209356558868363" name="true" expressionType="TYPE_CONSTANT" returnType="java.lang.Boolean" interpreter="">
+                            <content>true</content>
+                        </expression>
+                    </input>
+                </inputs>
+            </userFilter>
+            <contract>
+                <inputDefinitions/>
+                <constraints/>
+            </contract>
+            <context>
+                <contextEntry key="hipChatOnboardUserVariable_ref">
+                    <expression id="_8811228252817821661" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </contextEntry>
+            </context>
+        </userTask>
+        <transitions>
+            <transition id="_6666375591147255079" name="5700870726958800010_-&gt;_7767800540904159425" source="_5700870726958800010" target="_7767800540904159425"/>
+            <transition id="_5226780574299569479" name="5189707049047128991_-&gt;_7435707654066390927" source="_5189707049047128991" target="_7435707654066390927"/>
+            <transition id="_8086028757893704816" name="8298627644161793879_-&gt;_6409771170577011135" source="_8298627644161793879" target="_6409771170577011135"/>
+            <transition id="_8954577735438839897" name="7357357591980029309_-&gt;_8298627644161793879" source="_7357357591980029309" target="_8298627644161793879"/>
+            <transition id="_6894822671093773608" name="7357357591980029309_-&gt;_5700870726958800010" source="_7357357591980029309" target="_5700870726958800010"/>
+            <transition id="_5993570045285770475" name="7435707654066390927_-&gt;_7767800540904159425" source="_7435707654066390927" target="_7767800540904159425"/>
+            <transition id="_6617123485640100125" name="7357357591980029309_-&gt;_5189707049047128991" source="_7357357591980029309" target="_5189707049047128991"/>
+            <transition id="_6257789878769005867" name="6173365751839750118_-&gt;_7435707654066390927" source="_6173365751839750118" target="_7435707654066390927">
+                <condition id="_6868069453736448621" name="isNewUserOnlineScript" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" interpreter="GROOVY">
+                    <content>return (hipChatOnboardUserVariable.mentionName != "")</content>
+                    <expression id="_7514051175126412930" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA" returnType="com.linkorb.model.HipChatOnboardUserModel">
+                        <content>hipChatOnboardUserVariable</content>
+                    </expression>
+                </condition>
+            </transition>
+            <transition id="_8490577410576887742" name="6409771170577011135_-&gt;_7767800540904159425" source="_6409771170577011135" target="_7767800540904159425"/>
+            <transition id="_7785980565840300775" name="5694872517941261600_-&gt;_7357357591980029309" source="_5694872517941261600" target="_7357357591980029309"/>
+            <transition id="_7759837143883897062" name="7767800540904159425_-&gt;_6173365751839750118" source="_7767800540904159425" target="_6173365751839750118"/>
+            <transition id="_8524398059183008066" name="6173365751839750118_-&gt;_6564678272169159486" source="_6173365751839750118" target="_6564678272169159486"/>
+        </transitions>
+        <gateway id="_7767800540904159425" name="Wait until all completed" gatewayType="PARALLEL">
+            <incomingTransition>_5993570045285770475</incomingTransition>
+            <incomingTransition>_6666375591147255079</incomingTransition>
+            <incomingTransition>_8490577410576887742</incomingTransition>
+            <outgoingTransition>_7759837143883897062</outgoingTransition>
+        </gateway>
+        <startEvent id="_5694872517941261600" name="Process start" interrupting="true">
+            <outgoingTransition>_7785980565840300775</outgoingTransition>
+            <description>This is where the process starts</description>
+        </startEvent>
+        <endEvent id="_6564678272169159486" name="The end">
+            <incomingTransition>_8524398059183008066</incomingTransition>
+        </endEvent>
+        <dataDefinitions/>
+        <businessDataDefinitions>
+            <businessDataDefinition id="_6964031097602739054" name="hipChatOnboardUserVariable" className="com.linkorb.model.HipChatOnboardUserModel" multiple="false">
+                <description></description>
+                <defaultValue id="_6821336591080805200" name="initHipChatOnboardUserVariable()" expressionType="TYPE_READ_ONLY_SCRIPT" returnType="com.linkorb.model.HipChatOnboardUserModel" interpreter="GROOVY">
+                    <content>def hipChatOnboardUserModelVar = new com.linkorb.model.HipChatOnboardUserModel()
+hipChatOnboardUserModelVar.firstName = hipChatOnboardUserVariableInput.firstName
+hipChatOnboardUserModelVar.lastName = hipChatOnboardUserVariableInput.lastName
+hipChatOnboardUserModelVar.email = hipChatOnboardUserVariableInput.email
+return hipChatOnboardUserModelVar</content>
+                    <expression id="_8271476329032403580" name="hipChatOnboardUserVariableInput" expressionType="TYPE_CONTRACT_INPUT" returnType="java.util.Map">
+                        <content>hipChatOnboardUserVariableInput</content>
+                    </expression>
+                </defaultValue>
+            </businessDataDefinition>
+        </businessDataDefinitions>
+        <documentDefinitions/>
+        <documentListDefinitions/>
+        <connectors/>
+        <elementFinder/>
+    </flowElements>
+    <stringIndexes>
+        <stringIndex index="1"/>
+        <stringIndex index="2"/>
+        <stringIndex index="3"/>
+        <stringIndex index="4"/>
+        <stringIndex index="5"/>
+    </stringIndexes>
+    <contract>
+        <inputDefinitions>
+            <inputDefinition name="hipChatOnboardUserVariableInput" multiple="false">
+                <inputDefinitions>
+                    <inputDefinition type="TEXT" name="firstName" multiple="false">
+                        <inputDefinitions/>
+                    </inputDefinition>
+                    <inputDefinition type="TEXT" name="lastName" multiple="false">
+                        <inputDefinitions/>
+                    </inputDefinition>
+                    <inputDefinition type="TEXT" name="email" multiple="false">
+                        <inputDefinitions/>
+                    </inputDefinition>
+                </inputDefinitions>
+            </inputDefinition>
+        </inputDefinitions>
+        <constraints/>
+    </contract>
+    <context>
+        <contextEntry key="hipChatOnboardUserVariable_ref">
+            <expression id="_5113495839823015914" name="hipChatOnboardUserVariable" expressionType="TYPE_BUSINESS_DATA_REFERENCE" returnType="org.bonitasoft.engine.business.data.BusinessDataReference">
+                <content>hipChatOnboardUserVariable</content>
+            </expression>
+        </contextEntry>
+    </context>
+</tns:processDefinition>
