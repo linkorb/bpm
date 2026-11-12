@@ -16,7 +16,8 @@
         "linkorb/boost": "~1.0"
     },
     "require-dev": {
-       "symfony/dotenv": "v3.3.0"
+       "symfony/dotenv": "v3.3.0",
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
